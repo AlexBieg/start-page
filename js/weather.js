@@ -3,7 +3,7 @@
 (async function() {
   var lat = 47.6158532;
   var lon = -122.3135296;
-  var weatherURL = "http://forecast.weather.gov/MapClick.php?";
+  var weatherURL = "https://forecast.weather.gov/MapClick.php?";
   var weatherData = "lat="+lat+"&lon="+lon;
 
   document.getElementById("weather-link").href = weatherURL + weatherData;
