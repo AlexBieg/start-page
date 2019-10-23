@@ -1,8 +1,9 @@
 'use strict';
 
 let events;
+const minuteRange = 600; // 10 hours (8am - 6pm)
 
-function buildCalendarEventDom(event, index) {
+function buildCalendarEventDom(event, eventList, index) {
   const start = new Date(event.start.dateTime);
   const startTime = start.toLocaleDateString("en-US", {
     timeStyle: 'short',
@@ -16,6 +17,10 @@ function buildCalendarEventDom(event, index) {
     minute: 'numeric',
   });
   const now = new Date();
+
+  if (now.getMonth() !== start.getMonth() || now.getDate() !== start.getDate()) {
+    return;
+  }
 
   const started = now > start;
   const ended = now > end;
@@ -45,7 +50,7 @@ function buildCalendarEventDom(event, index) {
   link.href = 'https://calendar.google.com/calendar/b/1/r/week';
   link.appendChild(domEvent)
 
-  return link;
+  eventList.appendChild(link);
 }
 
 function buildCalendarTimeline(event, eventTimeline, index) {
@@ -54,11 +59,8 @@ function buildCalendarTimeline(event, eventTimeline, index) {
 
   const timelineStart = new Date();
   timelineStart.setHours(8, 0, 0, 0);
-  const timelineEnd = new Date();
-  timelineEnd.setHours(18, 0, 0, 0);
 
   const pixelRange = eventTimeline.offsetHeight;
-  const minuteRange = 600; // 10 hours (8am - 6pm)
 
   const startMinOffset = Math.floor(Math.abs(eventStart - timelineStart)/1000/60);
   const endMinOffset = Math.floor(Math.abs(eventEnd - timelineStart)/1000/60);
@@ -81,6 +83,31 @@ function buildCalendarTimeline(event, eventTimeline, index) {
   })(index);
 
   eventTimeline.appendChild(eventDiv)
+}
+
+function addCurrentTimeLine(eventTimeline) {
+  const existingLine = document.getElementById('now-line');
+  if (existingLine) {
+    eventTimeline.removeChild(existingLine);
+  }
+  const now = new Date();
+  const pixelRange = eventTimeline.offsetHeight;
+
+  const timelineStart = new Date();
+  timelineStart.setHours(8, 0, 0, 0);
+
+  const startMinOffset = Math.floor(Math.abs(now - timelineStart)/1000/60);
+
+  const startPercent = startMinOffset / minuteRange;
+  const startPixel = Math.floor(startPercent * pixelRange);
+
+  const nowDiv = document.createElement('div');
+  nowDiv.style.top = `${startPixel}px`;
+  nowDiv.id = 'now-line';
+  nowDiv.classList.add('now-line');
+  nowDiv.classList.add('line');
+
+  eventTimeline.appendChild(nowDiv);
 }
 
 function getCalendarEvents() {
@@ -109,13 +136,16 @@ function getCalendarEvents() {
     const eventTimeline = document.getElementById('busy-timeline');
 
     events.forEach((event, index) => {
-      eventList.appendChild(buildCalendarEventDom(event, index));
+      buildCalendarEventDom(event, eventList, index);
     });
 
     events.forEach((event, index) => {
       buildCalendarTimeline(event, eventTimeline, index);
     });
 
-    console.log(events);
+    addCurrentTimeLine(eventTimeline);
+    setInterval(() => {
+      addCurrentTimeLine(eventTimeline);
+    }, 1000);
   })
 }

@@ -120,6 +120,11 @@ body {
   background-color: gray;
 }
 
+.busy-timeline .line.now-line {
+  position: absolute;
+  background-color: white;
+}
+
 .timeline-event {
   background-color: #34b1eb;
   width: 10px;
