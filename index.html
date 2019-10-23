@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <title>Home</title>
   <meta charset="UTF-8">
@@ -20,39 +21,92 @@
     </a>
     <script src="js/weather.js"></script>
     <script src="js/background.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/google.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+      </script>
 
-    <div id="content">
-      <table id="links"><tr>
-          <td><span class="section-header">Work:</span>
-            <ul class="section">
-              <a href="https://mail.google.com/mail/u/1/#inbox"><li>Gmail</li></a>
-              <a href="https://calendar.google.com/calendar/b/1/r"><li>Calendar</li></a>
-              <a href="https://github.com/VoxsupInc"><li>Github</li></a>
-            </ul>
-          </td>
-          <td><span class="section-header">News:</span>
-            <ul class="section">
-              <a href="http://www.npr.org/"><li>NPR</li></a>
-              <a href="http://www.sciencedaily.com/"><li>ScienceDaily</li></a>
-            </ul>
-          </td>
-          <td><span class="section-header">Tech:</span>
-            <ul class="section">
-              <a href="https://slashdot.org"><li>Slashdot</li></a>
-              <a href="http://news.ycombinator.com/"><li>Hacker News</li></a>
-              <a href="http://hackaday.com/"><li>Hackaday</li></a>
-            </ul>
-          </td>
-          <td><span class="section-header">Inspire:</span>
-            <ul class="section">
-              <a href="http://writersalmanac.org/"><li>Writer's Almanac</li></a>
-              <a href="http://www.brainpickings.org/"><li>Brain Pickings</li></a>
-              <a href="http://www.lettersofnote.com/"><li>Letters of Note</li></a>
-              <a href="http://nautil.us/"><li>Nautilus</li></a>
-              <a href="http://zenpencils.com/"><li>Zen Pencils</li></a>
-            </ul>
-          </td>
-      </tr></table>
+    <div class="data">
+      <div class="content links">
+        <table id="links">
+          <tr>
+            <td><span class="section-header">Work:</span>
+              <ul class="section">
+                <a href="https://mail.google.com/mail/u/1/#inbox">
+                  <li>Gmail</li>
+                </a>
+                <a href="https://calendar.google.com/calendar/b/1/r">
+                  <li>Calendar</li>
+                </a>
+                <a href="https://github.com/VoxsupInc">
+                  <li>Github</li>
+                </a>
+              </ul>
+            </td>
+            <td><span class="section-header">News:</span>
+              <ul class="section">
+                <a href="http://www.npr.org/">
+                  <li>NPR</li>
+                </a>
+                <a href="http://www.sciencedaily.com/">
+                  <li>ScienceDaily</li>
+                </a>
+              </ul>
+            </td>
+            <td><span class="section-header">Tech:</span>
+              <ul class="section">
+                <a href="https://slashdot.org">
+                  <li>Slashdot</li>
+                </a>
+                <a href="http://news.ycombinator.com/">
+                  <li>Hacker News</li>
+                </a>
+                <a href="http://hackaday.com/">
+                  <li>Hackaday</li>
+                </a>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="content agenda">
+        <div class="agenda-header"><span class="section-header">Agenda:</span></div>
+        <div class="agenda-data">
+          <ul class="section" id="calendar-events">
+            <div>Loading...</div>
+          </ul>
+          <div class="section calendar-visual">
+            <div class="busy-times">
+              <div>8am</div>
+              <div>9am</div>
+              <div>10am</div>
+              <div>11am</div>
+              <div>12pm</div>
+              <div>1pm</div>
+              <div>2pm</div>
+              <div>3pm</div>
+              <div>4pm</div>
+              <div>5pm</div>
+              <div>6pm</div>
+            </div>
+            <div class="busy-timeline" id="busy-timeline">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

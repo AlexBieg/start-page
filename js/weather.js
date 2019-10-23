@@ -13,8 +13,6 @@
   const response = await fetch(url);
   const json = await response.json();
 
-  console.log(json);
-
   document.getElementById("weather").innerHTML = "<i class=\"wi "+insertIcon(json.data.iconLink[0])+"\"></i> "+json.currentobservation.Temp+" ˚ F";
   document.getElementById("weather-range").innerHTML = `${json.data.temperature[0]}/${json.data.temperature[1]} ˚ F`;
 
