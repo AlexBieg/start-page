@@ -119,7 +119,7 @@ function getCalendarEvents() {
   const endDateString = endDate.toISOString();
 
   gapi.client.request({
-    path: `https://www.googleapis.com/calendar/v3/calendars/${'alex.bieg@4cinsights.com'}/events`,
+    path: `https://www.googleapis.com/calendar/v3/calendars/${'alex.bieg@skilljar.com'}/events`,
     params: {
       timeMin: startDateString,
       timeMax: endDateString,
