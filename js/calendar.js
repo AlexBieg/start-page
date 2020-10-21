@@ -125,7 +125,7 @@ function getCalendarEvents() {
       timeMax: endDateString,
     }
   }).then(({ result }) => {
-    events = result.items.sort(function(a,b){
+    events = result.items.filter(i => i.status !== 'cancelled').sort(function(a,b){
       return new Date(a.start.dateTime) - new Date(b.start.dateTime);
     });;
 
