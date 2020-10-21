@@ -5,17 +5,9 @@ const minuteRange = 600; // 10 hours (8am - 6pm)
 
 function buildCalendarEventDom(event, eventList, index) {
   const start = new Date(event.start.dateTime);
-  const startTime = start.toLocaleDateString("en-US", {
-    timeStyle: 'short',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
+  const startTime = `${start.getHours() % 12}:${start.getMinutes()}`
   const end = new Date(event.end.dateTime);
-  const endTime = end.toLocaleDateString("en-US", {
-    timeStyle: 'short',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
+  const endTime = `${end.getHours() % 12}:${end.getMinutes()}`
   const now = new Date();
 
   if (now.getMonth() !== start.getMonth() || now.getDate() !== start.getDate()) {
